@@ -13,9 +13,9 @@ app.register_blueprint(Login)
 app.register_blueprint(reportes) 
 # Configuración de CORS
 CORS(app, resources={
-    r"/guardar_datos": {"origins": ["http://127.0.0.1:5000", "http://192.168.100.31:5000", "http://192.168.100.31:5173", "http://localhost:5173", "https://crimeiq.org"]},
-    r"/guardar_reporte": {"origins": ["http://127.0.0.1:5000", "http://192.168.100.31:5000", "http://192.168.100.31:5173", "http://localhost:5173", "https://crimeiq.org"]},
+    r"/guardar_datos": {"origins": ["*"]},
+    r"/guardar_reporte": {"origins": ["*"]},
     r"/*": {"origins": "*"},  # Permitir todas las solicitudes CORS para todas las rutas
-    r"/login": {"origins": ["http://127.0.0.1:5000", "http://192.168.100.31:5000", "http://192.168.100.31:5173", "http://localhost:5173", "https://crimeiq.org"]}
+    r"/login": {"origins": ["*"]}
 })
 
