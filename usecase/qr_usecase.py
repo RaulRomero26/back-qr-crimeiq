@@ -29,10 +29,10 @@ def generar_qr():
         # Convertir los datos a cadena JSON (opcional)
         datos_json = json.dumps(data)
          # Ruta al archivo de tu logo
-        ruta_logo = "C:/Users/TORO/Desktop/Ciq-Vig/BACKEND_2/img/3.png"
+        ruta_logo = "/home/backend/img/3.png"
 
         # Ruta donde se guardará la imagen
-        ruta_guardado = "C:/Users/TORO/Desktop/Ciq-Vig/BACKEND_2/RESULTADO_QR"
+        ruta_guardado = "/home/backend/RESULTADO_QR"
         # Llamar al script qr.py y pasarle los datos y el nombre del archivo con extensión como argumentos
         ruta_imagen_qr = generar_codigo_qr_con_logo(datos_json, ruta_logo, nombre_archivo_con_extension, ruta_guardado)
 
