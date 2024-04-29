@@ -1,6 +1,7 @@
 from flask import Blueprint, send_from_directory, request, jsonify
 from usecase.qr_usecase import generar_qr, captura_qr
 from utils.db import db
+import os
 
 qr = Blueprint('qr', __name__)
 
@@ -10,7 +11,8 @@ def generar_qr_handler():
 
 @qr.route('/imagenes/<path:filename>')
 def servir_imagen_handler(filename):
-    return send_from_directory('C:/Users/TORO/Desktop/Ciq-Vig/BACKEND_2/RESULTADO_QR', filename)
+    directorio = os.path.join(os.getcwd(), 'RESULTADO_QR')
+    return send_from_directory(directorio, filename)
 
 @qr.route('/guardar_datos', methods=['POST'])
 def capturar_qr_handler():
