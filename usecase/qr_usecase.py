@@ -40,10 +40,11 @@ def generar_qr():
         # Construir las rutas absolutas
         ruta_logo_absoluta = os.path.join(directorio_actual, ruta_logo)
         ruta_guardado_absoluta = os.path.join(directorio_actual, ruta_guardado)
-
+        print('linea 43',ruta_logo_absoluta)
+        print('linea 44',ruta_guardado_absoluta)
         # Llamar al script qr.py y pasarle los datos y el nombre del archivo con extensión como argumentos
         ruta_imagen_qr = generar_codigo_qr_con_logo(datos_json, ruta_logo_absoluta, nombre_archivo_con_extension, ruta_guardado_absoluta)
-        print(ruta_imagen_qr)
+        print('linea 47',ruta_imagen_qr)
         return jsonify({
             'mensaje': 'Se ha generado el código QR con éxito.',
             'ruta': ruta_imagen_qr})
