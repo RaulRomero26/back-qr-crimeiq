@@ -49,7 +49,7 @@ def generar_qr():
         print('linea 47',ruta_imagen_qr)
         return jsonify({
             'mensaje': 'Se ha generado el código QR con éxito.',
-            'ruta': ruta_imagen_qr})
+            'ruta': 'https://crimeiq.ieinternationalenglish.com/imagenes/'+nombre_archivo_con_extension})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
