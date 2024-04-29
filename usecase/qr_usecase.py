@@ -38,8 +38,10 @@ def generar_qr():
         directorio_actual = os.path.dirname(os.path.abspath(__file__))
 
         # Construir las rutas absolutas
-        ruta_logo_absoluta = os.path.join(directorio_actual, ruta_logo)
-        ruta_guardado_absoluta = os.path.join(directorio_actual, ruta_guardado)
+        #ruta_logo_absoluta = os.path.join(directorio_actual, ruta_logo)
+        #ruta_guardado_absoluta = os.path.join(directorio_actual, ruta_guardado)
+        ruta_logo_absoluta = os.path.abspath(os.path.join(directorio_actual, ruta_logo))
+        ruta_guardado_absoluta = os.path.abspath(os.path.join(directorio_actual, ruta_guardado))
         print('linea 43',ruta_logo_absoluta)
         print('linea 44',ruta_guardado_absoluta)
         # Llamar al script qr.py y pasarle los datos y el nombre del archivo con extensión como argumentos
