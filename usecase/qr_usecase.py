@@ -28,13 +28,21 @@ def generar_qr():
 
         # Convertir los datos a cadena JSON (opcional)
         datos_json = json.dumps(data)
-         # Ruta al archivo de tu logo
-        ruta_logo = "/home/backend/img/3.png"
+        # Ruta al archivo de tu logo
+        ruta_logo = "../img/3.png"  # Assuming the logo is in the same directory as the script
 
         # Ruta donde se guardará la imagen
-        ruta_guardado = "/home/backend/RESULTADO_QR"
+        ruta_guardado = "../RESULTADO_QR"  # Assuming the directory to save the image is in the same directory as the script
+
+        # Obtener la ruta absoluta del directorio actual
+        directorio_actual = os.path.dirname(os.path.abspath(__file__))
+
+        # Construir las rutas absolutas
+        ruta_logo_absoluta = os.path.join(directorio_actual, ruta_logo)
+        ruta_guardado_absoluta = os.path.join(directorio_actual, ruta_guardado)
+
         # Llamar al script qr.py y pasarle los datos y el nombre del archivo con extensión como argumentos
-        ruta_imagen_qr = generar_codigo_qr_con_logo(datos_json, ruta_logo, nombre_archivo_con_extension, ruta_guardado)
+        ruta_imagen_qr = generar_codigo_qr_con_logo(datos_json, ruta_logo_absoluta, nombre_archivo_con_extension, ruta_guardado_absoluta)
 
         return jsonify({
             'mensaje': 'Se ha generado el código QR con éxito.',
