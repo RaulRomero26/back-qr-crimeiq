@@ -29,7 +29,7 @@ def generar_qr():
         # Convertir los datos a cadena JSON (opcional)
         datos_json = json.dumps(data)
         # Ruta al archivo de tu logo
-        ruta_logo = "../img/3.png"  # Assuming the logo is in the same directory as the script
+        ruta_logo = "../Img/3.png"  # Assuming the logo is in the same directory as the script
 
         # Ruta donde se guardará la imagen
         ruta_guardado = "../RESULTADO_QR"  # Assuming the directory to save the image is in the same directory as the script
