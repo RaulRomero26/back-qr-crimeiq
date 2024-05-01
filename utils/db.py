@@ -9,7 +9,7 @@ class Database:
         return self.db[collection_name]
 
 # Configuración de la base de datos MongoDB
-MONGO_URI = 'mongodb://crimeiq:admincrimeiq@62.72.26.104:27319/?authMechanism=DEFAULT&authSource=admin'  # URI de conexión a MongoDB
+MONGO_URI = 'mongodb://crimeiq:admincrimeiq@178.16.142.22:27319/?authMechanism=DEFAULT&authSource=admin'  # URI de conexión a MongoDB
 DB_NAME = 'REGISTROS_QR'  # Nombre de tu base de datos en MongoDB
 COLLECTION_NAME = 'RECORRIDOS'  # Nombre de tu colección en MongoDB
 
