@@ -4,18 +4,16 @@ from flask_sslify import SSLify
 from routes.qr import qr
 from routes.Usuarios import Login
 from routes.reportes import reportes
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-sslify = SSLify(app)
+CORS(app, origins=["http://localhost:5173", "http://example.com"])
 
 app.register_blueprint(qr)
 app.register_blueprint(Login)
-app.register_blueprint(reportes) 
-# Configuración de CORS
-CORS(app, resources={
-    r"/guardar_datos": {"origins": ["*"]},
-    r"/guardar_reporte": {"origins": ["*"]},
-    r"/*": {"origins": "*"},  # Permitir todas las solicitudes CORS para todas las rutas
-    r"/login": {"origins": ["*"]}
-})
+app.register_blueprint(reportes)
 
+# Configuración de SSLify
+sslify = SSLify(app)

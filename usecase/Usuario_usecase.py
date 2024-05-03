@@ -7,7 +7,7 @@ def login():
     UserName = data.get('UserName')
     password = data.get('Password')
     collection = db_Usu.get_collection('USUARIOS')
-
+    print(collection)
     if not UserName or not password:
         return jsonify({'msg': 'Falta el nombre de usuario o la contraseña'}), 400
 
