@@ -33,3 +33,10 @@ COLLECTION_NAME_REPO = 'INCIDENCIAS'  # Nombre de tu colección en MongoDB
 # Crear una instancia de la base de datos
 db_Inc = Database(MONGO_URI, DB_NAME_REPO)
 collection_Inc = db_Inc.get_collection(COLLECTION_NAME_REPO)
+
+
+DB_NAME_TAREAS = 'TAREAS'  # Nombre de tu base de datos en MongoDB
+COLLECTION_NAME_TAREAS = 'TAREAS'  # Nombre de tu colección en MongoDB
+
+db_tareas = Database(MONGO_URI, DB_NAME_TAREAS)
+collection_tareas = db_tareas.get_collection(COLLECTION_NAME_TAREAS)
