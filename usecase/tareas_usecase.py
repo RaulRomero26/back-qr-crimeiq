@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from datetime import datetime
 import json
 import sys
 import os
@@ -9,6 +10,7 @@ def crear_tarea():
     try:
         # Obtener los datos del cuerpo de la solicitud como un diccionario
         data = request.get_json()
+        data['fecha_asignacion'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print(data)
         resultado = crearTarea(data)
         return resultado
