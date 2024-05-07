@@ -9,3 +9,17 @@ def crearTarea(data):
     except Exception as e:
         print('Error al insertar datos en MongoDB:', str(e))
         return {'success': False, 'message': 'Error al guardar los datos en la base de datos.'}
+
+
+def getTareas():
+    try:
+        # Obtener todas las tareas de la colección
+        tareas = collection_tareas.find()
+        tareas_list = []
+        for tarea in tareas:
+            tarea['_id'] = str(tarea['_id'])
+            tareas_list.append(tarea)
+        return {'success': True, 'data': tareas_list}
+    except Exception as e:
+        print('Error al obtener datos de MongoDB:', str(e))
+        return {'success': False, 'message': 'Error al obtener los datos de la base de datos.'}
