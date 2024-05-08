@@ -4,8 +4,8 @@ from bson import ObjectId
 
 def login():
     data = request.json
-    UserName = data.get('UserName')
-    password = data.get('Password')
+    UserName = data.get('username')
+    password = data.get('password')
     collection = db_Usu.get_collection('USUARIOS')
     print(collection)
     if not UserName or not password:
