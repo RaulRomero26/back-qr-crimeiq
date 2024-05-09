@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from utils.db import collection
+from utils.db import collection, collection_qr
 import subprocess
 import logging
 import json
@@ -9,16 +9,18 @@ import os
 import qrcode
 from PIL import Image
 
+from repositories.qr_repo import obtener_qrs_repo
+
 def generar_qr():
     try:
         # Obtener los datos del cuerpo de la solicitud como un diccionario
         data = request.get_json()
-        print(data)
+        print('ESTE ES EL QUE ESTOY VIENDO :',data['body'])
         sys.stdout.flush()
 
         # Obtener el nombre del archivo del diccionario de datos
-        nombre_archivo = data.get('nombreArchivo')  # Obtener el nombre del archivo proporcionado por el usuario
-
+        nombre_archivo = data['body'].get('nombreArchivo')  # Obtener el nombre del archivo proporcionado por el usuario
+        print('ESTE ES EL NOMBRE DEL ARCHIVO:',nombre_archivo)
         # Validar si se proporcionó un nombre de archivo
         if not nombre_archivo:
             return jsonify({'error': 'No se proporcionó un nombre de archivo válido.'}), 400
@@ -35,6 +37,7 @@ def generar_qr():
         ruta_guardado = "../RESULTADO_QR"  # Assuming the directory to save the image is in the same directory as the script
 
         # Obtener la ruta absoluta del directorio actual
+        print('ANTES DE EL OS PATH')
         directorio_actual = os.path.dirname(os.path.abspath(__file__))
 
         # Construir las rutas absolutas
@@ -47,9 +50,12 @@ def generar_qr():
         # Llamar al script qr.py y pasarle los datos y el nombre del archivo con extensión como argumentos
         ruta_imagen_qr = generar_codigo_qr_con_logo(datos_json, ruta_logo_absoluta, nombre_archivo_con_extension, ruta_guardado_absoluta)
         print('linea 47',ruta_imagen_qr)
+        data['body']['ruta_imagen_qr'] = 'http://localhost:5000/imagenes/' + nombre_archivo_con_extension
+        print('linea 49',data['body'])
+        collection_qr.insert_one( data['body'])
         return jsonify({
             'mensaje': 'Se ha generado el código QR con éxito.',
-            'ruta': 'https://crimeiq.ieinternationalenglish.com/imagenes/'+nombre_archivo_con_extension})
+            'ruta': 'http://localhost:5000/imagenes/'+nombre_archivo_con_extension})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
@@ -126,3 +132,10 @@ def captura_qr(data):
     except Exception as e:
         print(f"Error al capturar el QR: {e}")
         return False
+
+def obtener_qrs_usecase():
+    try:
+        datos = obtener_qrs_repo()
+        return jsonify(datos)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

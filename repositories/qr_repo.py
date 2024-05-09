@@ -1,4 +1,4 @@
-from utils.db import db, collection
+from utils.db import db, collection, collection_qr
 
 def insertar_res(data):
     try:
@@ -9,3 +9,12 @@ def insertar_res(data):
     except Exception as e:
         print('Error al insertar datos en MongoDB:', str(e))
         return {'success': False, 'message': 'Error al guardar los datos en la base de datos.'}
+
+def obtener_qrs_repo():
+    try:
+        # Obtener todos los documentos de la colección de códigos QR generados
+        datos = list(collection_qr.find({}, {'_id': 0}))
+        return {'success': True, 'data': datos}
+    except Exception as e:
+        print('Error al obtener los datos de la base de datos:', str(e))
+        return {'success': False, 'message': 'Error al obtener los datos de la base de datos.'}

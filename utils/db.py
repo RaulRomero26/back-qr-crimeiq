@@ -14,10 +14,12 @@ MONGO_URI = os.getenv('MONGO_URI')  # URI de conexión a MongoDB
 
 DB_NAME = 'REGISTROS_QR'  # Nombre de tu base de datos en MongoDB
 COLLECTION_NAME = 'RECORRIDOS'  # Nombre de tu colección en MongoDB
+COLLECTION_QR_GENERADOS = 'QR_CREADOS'  # Nombre de tu colección en MongoDB
 
 # Crear una instancia de la base de datos
 db = Database(MONGO_URI, DB_NAME)
 collection = db.get_collection(COLLECTION_NAME)
+collection_qr = db.get_collection(COLLECTION_QR_GENERADOS)
 
 DB_NAME_USER = 'USU_CIQ'  # Nombre de tu base de datos en MongoDB
 COLLECTION_NAME_USER = 'USUARIOS'  # Nombre de tu colección en MongoDB

@@ -1,5 +1,5 @@
 from flask import Blueprint, send_from_directory, request, jsonify
-from usecase.qr_usecase import generar_qr, captura_qr
+from usecase.qr_usecase import generar_qr, captura_qr, obtener_qrs_usecase
 from utils.db import db
 import os
 
@@ -29,3 +29,7 @@ def obtener_recorridos():
     collection = db.get_collection('RECORRIDOS')  # Obtener la colección de recorridos
     datos = list(collection.find({}, {'_id': 0}))  # Obtener todos los documentos de la colección
     return jsonify(datos)
+
+@qr.route('/api/all-qr')
+def obtener_qrs():
+    return obtener_qrs_usecase()
