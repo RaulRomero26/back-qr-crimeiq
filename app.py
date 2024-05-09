@@ -1,10 +1,12 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_sslify import SSLify
-from routes.qr import qr
-from routes.Usuarios import Login
-from routes.reportes import reportes
-from routes.tareas import tareas
+from routes.qr_routes import qr_routes
+from routes.auth_routes import auth_routes
+from routes.usuarios_routes import usuarios_routes
+from routes.tareas_routes import tareas_routes
+from routes.reportes_routes import reportes_routes
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -12,10 +14,11 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:5173", "http://example.com"])
 
-app.register_blueprint(qr)
-app.register_blueprint(Login)
-app.register_blueprint(reportes)
-app.register_blueprint(tareas)
+app.register_blueprint(qr_routes)
+app.register_blueprint(auth_routes)
+app.register_blueprint(usuarios_routes)
+app.register_blueprint(tareas_routes)
+app.register_blueprint(reportes_routes)
 
 # Configuración de SSLify
 sslify = SSLify(app)

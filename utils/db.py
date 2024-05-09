@@ -12,33 +12,23 @@ class Database:
 # Configuración de la base de datos MongoDB
 MONGO_URI = os.getenv('MONGO_URI')  # URI de conexión a MongoDB
 
-DB_NAME = 'REGISTROS_QR'  # Nombre de tu base de datos en MongoDB
-COLLECTION_NAME = 'RECORRIDOS'  # Nombre de tu colección en MongoDB
-COLLECTION_QR_GENERADOS = 'QR_CREADOS'  # Nombre de tu colección en MongoDB
+class MyDatabase:
+    def __init__(self, db_name):
+        self.db = Database(MONGO_URI, db_name)
+
+    def get_collection(self, collection_name):
+        return self.db.get_collection(collection_name)
 
 # Crear una instancia de la base de datos
-db = Database(MONGO_URI, DB_NAME)
-collection = db.get_collection(COLLECTION_NAME)
-collection_qr = db.get_collection(COLLECTION_QR_GENERADOS)
+db = MyDatabase('REGISTROS_QR')
+collection_recorridos = db.get_collection('RECORRIDOS')
+collection_qr = db.get_collection('QR_CREADOS')
 
-DB_NAME_USER = 'USU_CIQ'  # Nombre de tu base de datos en MongoDB
-COLLECTION_NAME_USER = 'USUARIOS'  # Nombre de tu colección en MongoDB
+db_Usu = MyDatabase('USU_CIQ')
+collection_Usu = db_Usu.get_collection('USUARIOS')
 
-# Crear una instancia de la base de datos
-db_Usu = Database(MONGO_URI, DB_NAME_USER)
-collection_Usu = db_Usu.get_collection(COLLECTION_NAME_USER)
+db_Inc = MyDatabase('REP_INCIDENCIA')
+collection_Inc = db_Inc.get_collection('INCIDENCIAS')
 
-
-DB_NAME_REPO = 'REP_INCIDENCIA'  # Nombre de tu base de datos en MongoDB
-COLLECTION_NAME_REPO = 'INCIDENCIAS'  # Nombre de tu colección en MongoDB
-
-# Crear una instancia de la base de datos
-db_Inc = Database(MONGO_URI, DB_NAME_REPO)
-collection_Inc = db_Inc.get_collection(COLLECTION_NAME_REPO)
-
-
-DB_NAME_TAREAS = 'TAREAS'  # Nombre de tu base de datos en MongoDB
-COLLECTION_NAME_TAREAS = 'TAREAS'  # Nombre de tu colección en MongoDB
-
-db_tareas = Database(MONGO_URI, DB_NAME_TAREAS)
-collection_tareas = db_tareas.get_collection(COLLECTION_NAME_TAREAS)
+db_tareas = MyDatabase('TAREAS')
+collection_tareas = db_tareas.get_collection('TAREAS')

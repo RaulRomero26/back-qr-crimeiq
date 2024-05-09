@@ -1,26 +1,19 @@
-from flask import Flask, request, jsonify
+
+from repositories.tareas_repository import tareas_repository
 from datetime import datetime
-import json
-import sys
-import os
 
-from repositories.tareas_repo import crearTarea, getTareas
+class TareasUsecase:
 
-def crear_tarea():
-    try:
-        # Obtener los datos del cuerpo de la solicitud como un diccionario
-        data = request.get_json()
-        data['fecha_asignacion'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(data)
-        resultado = crearTarea(data)
-        return resultado
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-    
+    def __init__(self, qr_repository):
+        self.qr_repository = qr_repository
 
-def get_tareas():
-    try:
-        resultado = getTareas()
-        return resultado
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+
+    def crear_tarea(self,data_tarea):
+        data_tarea['fecha_asignacion'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        return tareas_repository.crearTarea(data_tarea)
+        
+
+    def get_tareas(self):
+        return tareas_repository.getTareas()
+
+tareas_usecase = TareasUsecase(tareas_repository)
