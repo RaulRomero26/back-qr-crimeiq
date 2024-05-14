@@ -86,7 +86,9 @@ class QrUsecase:
         return self.qr_repository.capturar_qr(qr_data)
     
     def obtener_qrs(self):
-        return self.qr_repository.obtener_qrs()
+        return {
+            'qrs': self.qr_repository.obtener_qrs()
+        }
     
     def obtener_recorridos(self):
         return self.qr_repository.obtener_recorridos()
