@@ -48,4 +48,20 @@ class ReportesRepository:
         except Exception as e:
                 return {'error': 'Error al guardar la alerta: {}'.format(str(e))}, 500
     
+
+    def get_alertas(self):
+        try:
+            data = list(collection_ale.find({}, {'_id': 0}))
+            return {
+                'message': 'Alertas exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+        
+        
 reportes_repository = ReportesRepository()

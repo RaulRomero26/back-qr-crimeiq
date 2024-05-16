@@ -12,3 +12,7 @@ def guardar_reporte():
 def guardar_alerta_emergencia():
     alerta_data = request.get_json()
     return reportes_usecase.guardar_alerta(alerta_data)
+
+@reportes_routes.route('/all-alertas', methods=['GET'])
+def get_alertas():
+    return reportes_usecase.get_alertas()

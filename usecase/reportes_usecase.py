@@ -10,5 +10,8 @@ class ReportesUsecase:
     
     def guardar_alerta(self, alerta_data):
         return reportes_repository.guardar_alerta(alerta_data)
+    
+    def get_alertas(self):
+        return reportes_repository.get_alertas()
 
 reportes_usecase = ReportesUsecase(reportes_repository)
