@@ -2,7 +2,7 @@ from utils.db import collection_Inc ,collection_ale
 
 class ReportesRepository:
 
-    def guardar_reporte(reporte_data):
+    def guardar_reporte(self,reporte_data):
         try:
             # Insertar los datos recibidos desde la aplicación frontend en la colección
             collection_Inc.insert_one(reporte_data)
@@ -17,7 +17,7 @@ class ReportesRepository:
                 }
         
     
-    def getReportes():
+    def getReportes(self):
         try:
             data = list(collection_Inc.find({}, {'_id': 0}))
             return {
