@@ -15,5 +15,12 @@ class TareasUsecase:
 
     def get_tareas(self):
         return tareas_repository.getTareas()
+    
+    def get_user_tasks(self,username_id):
+        return tareas_repository.get_user_tasks(username_id)
+    
+    def update_task_completion_date(self,task_id):
+        current_date = datetime.now()
+        return tareas_repository.update_task_completion_date(task_id,current_date)
 
 tareas_usecase = TareasUsecase(tareas_repository)

@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from usecase import usuarios_usecase
+from usecase.usuarios_usecase import usuarios_usecase
 
 usuarios_routes = Blueprint('usuarios_routes', __name__)
 

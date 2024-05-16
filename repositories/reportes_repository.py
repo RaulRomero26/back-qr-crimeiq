@@ -1,4 +1,4 @@
-from utils.db import collection_Inc
+from utils.db import collection_Inc ,collection_ale
 
 class ReportesRepository:
 
@@ -30,5 +30,22 @@ class ReportesRepository:
                 'success': False,
                 'error': str(e)
             }
+    
+    def guardar_alerta (self,alerta_data):
+        try:
+            required_fields = ['Usuario', 'fecha', 'hora','latitud', 'longitud']
+            if not all(key in alerta_data for key in required_fields):
+                return {'error': 'Faltan campos obligatorios en los datos recibidos'}, 400
+            
+            # Insertar datos en la colección de alertas
+            collection_ale.insert_one(alerta_data)
+            
+            return {'message': 'Datos de la alerta guardados exitosamente'}, 200
+        
+        except KeyError as e:
+                    return {'error': 'Falta el campo obligatorio: {}'.format(str(e))}, 400
+                
+        except Exception as e:
+                return {'error': 'Error al guardar la alerta: {}'.format(str(e))}, 500
     
 reportes_repository = ReportesRepository()

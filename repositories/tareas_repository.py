@@ -1,4 +1,5 @@
 from utils.db import collection_tareas
+from bson import ObjectId
 
 class TareasRepository:
 
@@ -31,4 +32,40 @@ class TareasRepository:
                 'error': str(e)
             }
     
+
+    def get_user_tasks(self,username_id):
+        try:
+            user_tasks = collection_tareas.find({'usu_asignado': username_id})
+
+            tasks_list = []
+            for task in user_tasks:
+                tasks_list.append({
+                    '_id': str(task['_id']),
+                    'titulo': task['titulo'],
+                    'descripcion': task['descripcion'],
+                    'fecha_hora_vencimiento': task['fecha_hora_vencimiento'],
+                    'estado': task['estado'],
+                    'tipo_tarea': task['tipo_tarea'],
+                    'no_servicio': task['no_servicio']
+                })
+
+            return {'tasks': tasks_list}, 200
+        except Exception as e:
+            return {'error': str(e)}, 500
+
+
+    def update_task_completion_date(self,task_id,current_date):
+        try:
+            result = collection_tareas.update_one(
+                {'_id': ObjectId(task_id)},
+                {'$set': {'estado': 'Completada', 'fecha_hora_completado': current_date}}
+            )
+
+            if result.modified_count > 0:
+                return {'message': 'Tarea marcada como completada en la base de datos'}, 200
+            else:
+                return {'error': 'No se pudo actualizar la tarea'}, 404
+        except Exception as e:
+            return {'error': str(e)}, 500
+
 tareas_repository = TareasRepository()

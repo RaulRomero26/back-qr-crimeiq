@@ -29,6 +29,7 @@ collection_Usu = db_Usu.get_collection('USUARIOS')
 
 db_Inc = MyDatabase('REP_INCIDENCIA')
 collection_Inc = db_Inc.get_collection('INCIDENCIAS')
+collection_ale = db_Inc.get_collection('ALERTAS')
 
 db_tareas = MyDatabase('TAREAS')
 collection_tareas = db_tareas.get_collection('TAREAS')
