@@ -4,13 +4,13 @@ from datetime import datetime
 
 class TareasUsecase:
 
-    def __init__(self, qr_repository):
-        self.qr_repository = qr_repository
+    def __init__(self, tareas_repository):
+        self.tareas_repository = tareas_repository
 
 
     def crear_tarea(self,data_tarea):
-        data_tarea['fecha_asignacion'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        return tareas_repository.crearTarea(data_tarea)
+        data_tarea['body']['fecha_asignacion'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        return tareas_repository.crearTarea(data_tarea['body'])
         
 
     def get_tareas(self):

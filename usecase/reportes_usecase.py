@@ -2,8 +2,8 @@ from repositories.reportes_repository import reportes_repository
 
 class ReportesUsecase:
 
-    def __init__(self, qr_repository):
-        self.qr_repository = qr_repository
+    def __init__(self, reportes_repository):
+        self.reportes_repository = reportes_repository
 
     def guardar_reporte(self, reporte_data):  # Añade 'self' aquí
         return reportes_repository.guardar_reporte(reporte_data)

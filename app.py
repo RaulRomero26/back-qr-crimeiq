@@ -6,6 +6,7 @@ from routes.auth_routes import auth_routes
 from routes.usuarios_routes import usuarios_routes
 from routes.tareas_routes import tareas_routes
 from routes.reportes_routes import reportes_routes
+from routes.catalogos_routes import catalogos_routes
 
 from dotenv import load_dotenv
 
@@ -19,6 +20,7 @@ app.register_blueprint(auth_routes)
 app.register_blueprint(usuarios_routes)
 app.register_blueprint(tareas_routes)
 app.register_blueprint(reportes_routes)
+app.register_blueprint(catalogos_routes)
 
 # Configuración de SSLify
 sslify = SSLify(app)
