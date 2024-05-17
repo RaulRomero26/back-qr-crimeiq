@@ -5,6 +5,7 @@ import json
 class UsuariosRepository:
 
     def registrar_usuario(self, usuario_data):
+        print(usuario_data)
         try:
             # Cifrar la contraseña antes de insertar los datos en la colección
             password = usuario_data.get('password')
