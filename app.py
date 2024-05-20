@@ -13,7 +13,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173", "http://example.com", "https://crimeiq.org", "https://www.crimeiq.org"])
+
+# Configurar CORS
+CORS(app, origins=["http://localhost:5173", "http://example.com", "https://crimeiq.org", "https://www.crimeiq.org", "https://scanner.crimeiq.org"])
 
 app.register_blueprint(qr_routes)
 app.register_blueprint(auth_routes)
