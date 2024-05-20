@@ -10,12 +10,14 @@ class AuthRepository:
             password = login_data.get('password')
 
             if not username or not password:
+                print('Falta el nombre de usuario o la contraseña')
                 return json.dumps({'msg': 'Falta el nombre de usuario o la contraseña'}), 400
 
             usuario = collection_Usu.find_one({'username': username})
             print(usuario)
 
             if not usuario:
+                print('no encontro el usuario')
                 return json.dumps({'msg': 'no encontro el usuario'}), 401
 
             stored_password = usuario.get('password')
@@ -24,6 +26,7 @@ class AuthRepository:
             if stored_password:
                 check = bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8'))
             else:
+                print('Usuario o contraseña incorrectos')
                 return json.dumps({'msg': 'Usuario o contraseña incorrectos'}), 401
 
             del usuario['password']
@@ -31,6 +34,7 @@ class AuthRepository:
             if check:
                 return json.dumps({'msg': 'Inicio de sesión exitoso', 'usuario': usuario}), 200
             else:
+                print('Usuario o contraseña incorrectos 2')
                 return json.dumps({'msg': 'Usuario o contraseña incorrectos'}), 401
         except Exception as e:
             return json.dumps({'msg': str(e)}), 500
