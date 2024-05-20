@@ -6,8 +6,8 @@ class AuthRepository:
 
     def login(self,login_data):
         try:
-            username = login_data.get('username')
-            password = login_data.get('password')
+            username = login_data.get('UserName')
+            password = login_data.get('Password')
 
             print('data de entrda:',login_data)
 
