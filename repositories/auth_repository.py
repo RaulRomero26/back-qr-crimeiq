@@ -9,6 +9,8 @@ class AuthRepository:
             username = login_data.get('username')
             password = login_data.get('password')
 
+            print('data de entrda:',login_data)
+
             if not username or not password:
                 print('Falta el nombre de usuario o la contraseña')
                 return json.dumps({'msg': 'Falta el nombre de usuario o la contraseña'}), 400
