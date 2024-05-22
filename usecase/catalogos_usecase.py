@@ -7,5 +7,8 @@ class CatalogosUsecase:
 
     def catalogo_usuarios(self):
         return catalogos_repository.catalogo_usuarios()
+    
+    def get_catalogo(self, catalogo_buscado):
+        return catalogos_repository.get_catalogo(catalogo_buscado)
 
 catalogos_usecase = CatalogosUsecase(catalogos_repository)
