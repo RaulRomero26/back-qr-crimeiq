@@ -33,3 +33,5 @@ collection_ale = db_Inc.get_collection('ALERTAS')
 
 db_tareas = MyDatabase('TAREAS')
 collection_tareas = db_tareas.get_collection('TAREAS')
+
+db_catatalogos = MyDatabase('CATALOGO_ACTIVIDADES')

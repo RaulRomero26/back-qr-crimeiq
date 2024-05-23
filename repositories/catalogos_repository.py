@@ -1,4 +1,4 @@
-from utils.db import collection_Usu
+from utils.db import collection_Usu,db_catatalogos
 from bson import json_util
 import json
 
@@ -20,9 +20,28 @@ class CatalogosRepository:
                 'error': str(e)
             }
         
+
+    def catalogo_roles(self):
+        try:
+            collection = db_catatalogos.get_collection('ROLES')
+            data = list(collection.find({'role': {'$exists': True, '$ne': None}}, {'_id': 1, 'role': 1}))
+            data = json.loads(json_util.dumps(data))
+            return {
+                'message': 'Roles Obtenidos exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+        
     def catalogo_tipo_tareas(self):
         try:
-            data = list(collection_Usu.find({'tipo_tarea': {'$exists': True, '$ne': None}}, {'_id': 1, 'tipo_tarea': 1}))
+            
+            collection = db_catatalogos.get_collection('ACTIVIDADES')
+            data = list(collection.find({'actividad': {'$exists': True, '$ne': None}}, {'_id': 1, 'actividad': 1}))
             data = json.loads(json_util.dumps(data))
             return {
                 'message': 'Tipo de tareas Obtenidos exitosamente.',
@@ -37,9 +56,10 @@ class CatalogosRepository:
     
  
     def get_catalogo(self, catalogo):
+        print('Catalogo:', catalogo)
         switcher = {
-            'usuarios': self.catalogo_usuarios,
-            'productos': self.catalogo_tipo_tareas,
+            'roles-usuarios': self.catalogo_roles,
+            'tipos-tareas': self.catalogo_tipo_tareas,
             # Agrega más aquí si es necesario
         }
         
