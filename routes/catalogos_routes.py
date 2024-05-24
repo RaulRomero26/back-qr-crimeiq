@@ -12,3 +12,8 @@ def get_catalogo():
     print('catalogo:', request.args.get('catalogo'))
     catalogo_buscado = request.args.get('catalogo')
     return catalogos_usecase.get_catalogo(catalogo_buscado)
+
+@catalogos_routes.route('/catalogo', methods=['PUT'])
+def update_catalogo():
+    catalogo_data = request.json
+    return catalogos_usecase.update_catalogo(catalogo_data)

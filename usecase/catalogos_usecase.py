@@ -10,5 +10,8 @@ class CatalogosUsecase:
     
     def get_catalogo(self, catalogo_buscado):
         return catalogos_repository.get_catalogo(catalogo_buscado)
+    
+    def update_catalogo(self, catalogo_data):
+        return catalogos_repository.update_catalogo(catalogo_data)
 
 catalogos_usecase = CatalogosUsecase(catalogos_repository)

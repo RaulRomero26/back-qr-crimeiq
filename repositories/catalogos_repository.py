@@ -1,5 +1,5 @@
 from utils.db import collection_Usu,db_catatalogos
-from bson import json_util
+from bson import json_util, ObjectId
 import json
 
 class CatalogosRepository:
@@ -54,6 +54,37 @@ class CatalogosRepository:
                 'error': str(e)
             }
     
+    def update_roles(self, catalogo_data):
+        try:
+            collection = db_catatalogos.get_collection('ROLES')
+            id = catalogo_data.get('_id').get('$oid')  # Accede a $oid
+            id = ObjectId(id)  # Convierte la cadena a ObjectId
+            collection.update_one({'_id': id}, {'$set': {'role': catalogo_data.get('role')}})
+            return {
+                'message': 'Rol actualizado exitosamente.',
+                'success': True
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def update_tipo_tareas(self, catalogo_data):
+        try:
+            collection = db_catatalogos.get_collection('ACTIVIDADES')
+            id = catalogo_data.get('_id').get('$oid')  # Accede a $oid
+            id = ObjectId(id)  # Convierte la cadena a ObjectId
+            collection.update_one({'_id': id}, {'$set': {'actividad': catalogo_data.get('actividad')}})
+            return {
+                'message': 'Tipo de tarea actualizado exitosamente.',
+                'success': True
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
  
     def get_catalogo(self, catalogo):
         print('Catalogo:', catalogo)
@@ -71,6 +102,21 @@ class CatalogosRepository:
             return func()
         else:
             return 'Catálogo no encontrado'
-          
+
+
+    def update_catalogo(self, catalogo_data):
+        print(catalogo_data)
+        switcher = {
+            'roles-usuarios': self.update_roles,
+            'tipos-tareas': self.update_tipo_tareas,
+            # Agrega más aquí si es necesario
+        } 
+
+        func = switcher.get(catalogo_data.get('catalogo'))
+
+        if func:
+            return func(catalogo_data)
+        else:
+            return 'Catálogo no encontrado'
         
 catalogos_repository = CatalogosRepository()
