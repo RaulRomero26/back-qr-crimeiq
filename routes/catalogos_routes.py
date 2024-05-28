@@ -17,3 +17,9 @@ def get_catalogo():
 def update_catalogo():
     catalogo_data = request.json
     return catalogos_usecase.update_catalogo(catalogo_data)
+
+@catalogos_routes.route('/catalogo', methods=['POST'])
+def add_option_catalogo():
+    catalogo_data = request.json
+    print('catalogo_data:', catalogo_data)
+    return catalogos_usecase.add_option(catalogo_data)

@@ -86,6 +86,21 @@ class CatalogosRepository:
                 'error': str(e)
             }
  
+    def add_option_roles(self, catalogo_data):
+        try:
+            collection = db_catatalogos.get_collection('ROLES')
+            collection.insert_one({'role': catalogo_data.get('role')})
+            return {
+                'message': 'Rol agregado exitosamente.',
+                'success': True
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+
     def get_catalogo(self, catalogo):
         print('Catalogo:', catalogo)
         switcher = {
@@ -111,6 +126,20 @@ class CatalogosRepository:
             'tipos-tareas': self.update_tipo_tareas,
             # Agrega más aquí si es necesario
         } 
+
+        func = switcher.get(catalogo_data.get('catalogo'))
+
+        if func:
+            return func(catalogo_data)
+        else:
+            return 'Catálogo no encontrado'
+        
+    def add_option(self, catalogo_data):
+        switcher = {
+            'roles-usuarios': self.add_option_roles,
+            #'tipos-tareas': self.add_option_tipo_tareas,
+            # Agrega más aquí si es necesario
+        }
 
         func = switcher.get(catalogo_data.get('catalogo'))
 
