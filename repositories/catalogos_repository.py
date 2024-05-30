@@ -53,6 +53,22 @@ class CatalogosRepository:
                 'success': False,
                 'error': str(e)
             }
+        
+    def catalogo_servicios(self):
+        try:
+            collection = db_catatalogos.get_collection('SERVICIOS')
+            data = list(collection.find({'servicio': {'$exists': True, '$ne': None}}, {'_id': 1, 'servicio': 1, 'direccion': 1, 'activo': 1}))
+            data = json.loads(json_util.dumps(data))
+            return {
+                'message': 'Servicios Obtenidos exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
     
     def update_roles(self, catalogo_data):
         try:
@@ -85,11 +101,27 @@ class CatalogosRepository:
                 'success': False,
                 'error': str(e)
             }
+        
+    def update_servicios(self, catalogo_data):
+        try:
+            collection = db_catatalogos.get_collection('SERVICIOS')
+            id = catalogo_data.get('_id').get('$oid')  # Accede a $oid
+            id = ObjectId(id)  # Convierte la cadena a ObjectId
+            collection.update_one({'_id': id}, {'$set': {'servicio': catalogo_data.get('servicio'), 'activo': catalogo_data.get('activo')}})
+            return {
+                'message': 'Servicio actualizado exitosamente.',
+                'success': True
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
  
     def add_option_roles(self, catalogo_data):
         try:
             collection = db_catatalogos.get_collection('ROLES')
-            collection.insert_one({'role': catalogo_data.get('role')})
+            collection.insert_one({'role': catalogo_data.get('role'), 'activo': catalogo_data.get('activo')})
             return {
                 'message': 'Rol agregado exitosamente.',
                 'success': True
@@ -103,9 +135,23 @@ class CatalogosRepository:
     def add_option_tipo_tareas(self, catalogo_data):
         try:
             collection = db_catatalogos.get_collection('ACTIVIDADES')
-            collection.insert_one({'actividad': catalogo_data.get('actividad')})
+            collection.insert_one({'actividad': catalogo_data.get('actividad'), 'activo': catalogo_data.get('activo')})
             return {
                 'message': 'Tipo de tarea agregado exitosamente.',
+                'success': True
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def add_option_servicios(self, catalogo_data):
+        try:
+            collection = db_catatalogos.get_collection('SERVICIOS')
+            collection.insert_one({'servicio': catalogo_data.get('servicio'), 'direccion': catalogo_data.get('direccion'), 'activo': catalogo_data.get('activo')})
+            return {
+                'message': 'Servicio agregado exitosamente.',
                 'success': True
             }
         except Exception as e:
@@ -119,6 +165,7 @@ class CatalogosRepository:
         switcher = {
             'roles-usuarios': self.catalogo_roles,
             'tipos-tareas': self.catalogo_tipo_tareas,
+            'servicios': self.catalogo_servicios,
             # Agrega más aquí si es necesario
         }
         
@@ -137,6 +184,7 @@ class CatalogosRepository:
         switcher = {
             'roles-usuarios': self.update_roles,
             'tipos-tareas': self.update_tipo_tareas,
+            'servicios': self.update_servicios,
             # Agrega más aquí si es necesario
         } 
 
@@ -151,6 +199,7 @@ class CatalogosRepository:
         switcher = {
             'roles-usuarios': self.add_option_roles,
             'tipos-tareas': self.add_option_tipo_tareas,
+            'servicios': self.add_option_servicios,
             # Agrega más aquí si es necesario
         }
 
