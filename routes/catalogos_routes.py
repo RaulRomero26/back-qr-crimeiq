@@ -23,3 +23,9 @@ def add_option_catalogo():
     catalogo_data = request.json
     print('catalogo_data:', catalogo_data)
     return catalogos_usecase.add_option(catalogo_data)
+
+@catalogos_routes.route('/catalogo_activo', methods=['GET'])
+def get_catalogo_activo():
+    catalogo_buscado = request.args.get('catalogo')
+    print('catalogo_buscado:', catalogo_buscado)
+    return catalogos_usecase.get_catalogo_activo(catalogo_buscado)

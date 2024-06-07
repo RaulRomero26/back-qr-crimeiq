@@ -17,4 +17,7 @@ class CatalogosUsecase:
     def add_option(self, catalogo_data):
         return catalogos_repository.add_option(catalogo_data)
 
+    def get_catalogo_activo(self, catalogo_buscado):
+        return catalogos_repository.get_catalogo_activos(catalogo_buscado)
+
 catalogos_usecase = CatalogosUsecase(catalogos_repository)

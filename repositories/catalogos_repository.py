@@ -209,5 +209,103 @@ class CatalogosRepository:
             return func(catalogo_data)
         else:
             return 'Catálogo no encontrado'
+
+    def catalogo_roles_activos(self):
+        try:
+            collection = db_catatalogos.get_collection('ROLES')
+            data = list(collection.find({'role': {'$exists': True, '$ne': None}, 'activo': True}, {'_id': 1, 'role': 1}))
+            data = json.loads(json_util.dumps(data))
+            return {
+                'message': 'Roles Obtenidos exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+    
+    def catalogo_tipo_tareas_activos(self):
+        try:
+            collection = db_catatalogos.get_collection('ACTIVIDADES')
+            data = list(collection.find({'actividad': {'$exists': True, '$ne': None}, 'activo': True}, {'_id': 1, 'actividad': 1}))
+            data = json.loads(json_util.dumps(data))
+            return {
+                'message': 'Tipo de tareas Obtenidos exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def catalogo_servicios_activos(self):
+        try:
+            collection = db_catatalogos.get_collection('SERVICIOS')
+            data = list(collection.find({'servicio': {'$exists': True, '$ne': None}, 'activo': True}, {'_id': 1, 'servicio': 1, 'direccion': 1}))
+            data = json.loads(json_util.dumps(data))
+            return {
+                'message': 'Servicios Obtenidos exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def catalogo_usuarios_activos(self):
+        try:
+            data = list(collection_Usu.find({'username': {'$exists': True, '$ne': None}}, {'_id': 1, 'username': 1}))
+            data = json.loads(json_util.dumps(data))
+            return {
+                'message': 'Usuarios Obtenidos exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+    
+    def catalogo_servicios_activos(self):
+        try:
+            collection = db_catatalogos.get_collection('SERVICIOS')
+            data = list(collection.find({'servicio': {'$exists': True, '$ne': None}, 'activo': True}, {'_id': 1, 'servicio': 1, 'direccion': 1}))
+            data = json.loads(json_util.dumps(data))
+            return {
+                'message': 'Servicios Obtenidos exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def get_catalogo_activos(self,catalogo):
+        print('Catalogo:', catalogo)
+        switcher = {
+            'roles-usuarios': self.catalogo_roles_activos,
+            'tipos-tareas': self.catalogo_tipo_tareas_activos,
+            'servicios': self.catalogo_servicios_activos,
+            'usuarios': self.catalogo_usuarios_activos,
+            # Agrega más aquí si es necesario
+        }
+        
+        # Obtén la función del diccionario
+        func = switcher.get(catalogo)
+
+        # Si la función existe, llámala
+        if func:
+            return func()
+        else:
+            return 'Catálogo no encontrado'
         
 catalogos_repository = CatalogosRepository()
