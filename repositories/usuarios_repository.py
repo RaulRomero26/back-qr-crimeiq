@@ -1,5 +1,6 @@
 from utils.db import collection_Usu
 import bcrypt
+from bson import json_util, ObjectId
 import json
 
 class UsuariosRepository:
@@ -29,7 +30,8 @@ class UsuariosRepository:
     
     def getUsuarios(self):
         try:
-            data = list(collection_Usu.find({}, {'_id': 0}))
+            data = list(collection_Usu.find({}))
+            data = json.loads(json_util.dumps(data))
             return {
                 'message': 'Usuarios obtenidas exitosamente.',
                 'success': True,
@@ -59,7 +61,7 @@ class UsuariosRepository:
     def actualizar_usuario(self, usuario_data):
         try:
             # Actualizar los datos del usuario en la colección
-            update_data = {key: value for key, value in usuario_data.items() if key not in ['password', 'Foto']}
+            update_data = {key: value for key, value in usuario_data.items() if key not in ['password', 'Foto','_id']}
             if 'password' in usuario_data:
                 password = usuario_data['password']
                 hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
@@ -67,7 +69,11 @@ class UsuariosRepository:
             if 'Foto' in usuario_data:
                 update_data['Foto'] = usuario_data['Foto']
             
-            collection_Usu.update_one({'_id': usuario_data['_id']}, {'$set': update_data})
+            print(usuario_data.get('_id'))
+            id = usuario_data.get('_id')
+            id = ObjectId(id)  # Convierte la cadena a ObjectId
+
+            collection_Usu.update_one({'_id': id}, {'$set': update_data}, upsert=True)
             return {
                 'success': True,
                 'message': 'Usuario actualizado exitosamente.'

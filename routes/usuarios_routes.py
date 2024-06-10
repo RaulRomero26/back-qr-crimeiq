@@ -33,7 +33,7 @@ def get_usuarios_asignados():
     
     return usuarios_usecase.get_usuarios_asignados(serv_asginado)
 
-@usuarios_routes.route('actualizar-usuario', methods=['POST'])
+@usuarios_routes.route('/actualizar-usuario', methods=['POST'])
 def actualizar_usuario():
     usuario_data = request.form.to_dict()
     archivos_data = request.files

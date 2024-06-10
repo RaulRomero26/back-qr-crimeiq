@@ -42,14 +42,15 @@ class UsuariosUsecase:
 
         usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
         
-        if archivos_data
-            file = archivos_data[file_key]
-            if file and file.filename:
-                filename = secure_filename(file.filename)
-                save_path = os.path.join(directorio_actual, '..', 'USUARIOS', filename)
-                file.save(save_path)
-                usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
-                usuario_data['Foto'] = f"https://api.scanner.crimeiq.org/imagenes/usuarios/{filename}"
+        if archivos_data:
+             for file_key in archivos_data:
+                file = archivos_data[file_key]
+                if file and file.filename:
+                    filename = secure_filename(file.filename)
+                    save_path = os.path.join(directorio_actual, '..', 'USUARIOS', filename)
+                    file.save(save_path)
+                    usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
+                    usuario_data['Foto'] = f"https://api.scanner.crimeiq.org/imagenes/usuarios/{filename}"
         
         return self.usuarios_repository.actualizar_usuario(usuario_data)
 
