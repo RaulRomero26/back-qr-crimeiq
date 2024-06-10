@@ -21,11 +21,36 @@ class UsuariosUsecase:
                 filename = secure_filename(file.filename)
                 save_path = os.path.join(directorio_actual, '..', 'USUARIOS', filename)
                 file.save(save_path)
-                usuario_data['Foto'] = f"http://localhost:5000/imagenes/usuarios/{filename}"
+                usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
+                usuario_data['Foto'] = f"https://api.scanner.crimeiq.org/imagenes/usuarios/{filename}"
 
         return self.usuarios_repository.registrar_usuario(usuario_data)
         
     def get_usuarios(self):
         return self.usuarios_repository.getUsuarios()
+
+    def get_usuarios_asignados(self, serv_asignado):
+        return self.usuarios_repository.get_usuarios_asignados(serv_asignado)
+
+    def actualizar_usuario(self, usuario_data, archivos_data):
+        directorio_actual = os.path.dirname(os.path.abspath(__file__))
+        
+        print("Directorio actual:", directorio_actual)
+        upload_folder = os.path.join(os.path.dirname(os.path.dirname(directorio_actual)), 'USUARIOS')
+        print("Upload folder:", upload_folder)
+        print(archivos_data)
+
+        usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
+        
+        if archivos_data
+            file = archivos_data[file_key]
+            if file and file.filename:
+                filename = secure_filename(file.filename)
+                save_path = os.path.join(directorio_actual, '..', 'USUARIOS', filename)
+                file.save(save_path)
+                usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
+                usuario_data['Foto'] = f"https://api.scanner.crimeiq.org/imagenes/usuarios/{filename}"
+        
+        return self.usuarios_repository.actualizar_usuario(usuario_data)
 
 usuarios_usecase = UsuariosUsecase(usuarios_repository)
