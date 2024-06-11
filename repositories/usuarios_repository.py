@@ -61,6 +61,7 @@ class UsuariosRepository:
     def actualizar_usuario(self, usuario_data):
         try:
             # Actualizar los datos del usuario en la colección
+            print('viene de inactivar:',usuario_data)
             update_data = {key: value for key, value in usuario_data.items() if key not in ['password', 'Foto','_id']}
             if 'password' in usuario_data:
                 password = usuario_data['password']
@@ -68,6 +69,11 @@ class UsuariosRepository:
                 update_data['password'] = hashed_password.decode('utf-8')
             if 'Foto' in usuario_data:
                 update_data['Foto'] = usuario_data['Foto']
+
+            if usuario_data.get('activo') == 'false':
+                update_data['activo'] = False
+            else:
+                update_data['activo'] = True  
             
             print(usuario_data.get('_id'))
             id = usuario_data.get('_id')
