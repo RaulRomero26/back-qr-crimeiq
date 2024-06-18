@@ -22,5 +22,8 @@ class TareasUsecase:
     def update_task_completion_date(self,task_id):
         current_date = datetime.now()
         return tareas_repository.update_task_completion_date(task_id,current_date)
+    
+    def get_task_recurrente(self):
+        return tareas_repository.get_task_recurrente()
 
 tareas_usecase = TareasUsecase(tareas_repository)

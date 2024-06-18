@@ -67,5 +67,15 @@ class TareasRepository:
                 return {'error': 'No se pudo actualizar la tarea'}, 404
         except Exception as e:
             return {'error': str(e)}, 500
+        
+    def get_task_recurrente(self):
+        try:
+            recurrent_tasks = collection_tareas.find({'recurrente': {'$exists': True, '$eq': True}})
+            recurrent_tasks = list(recurrent_tasks)
+            # print(recurrent_tasks)
+            return {'tasks': recurrent_tasks}, 200
+        except Exception as e:
+            print(f"Error al obtener tareas recurrentes: {e}")
+            return {'error': str(e)}, 500
 
 tareas_repository = TareasRepository()
