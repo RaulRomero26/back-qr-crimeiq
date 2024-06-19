@@ -1,5 +1,6 @@
 from utils.db import collection_tareas
 from bson import ObjectId
+from datetime import datetime
 
 class TareasRepository:
 
@@ -70,9 +71,37 @@ class TareasRepository:
         
     def get_task_recurrente(self):
         try:
+            # Obtener el día de la semana actual
+            current_day_english = datetime.now().strftime('%A').lower()
+            # Mapear los días de la semana en inglés a español
+            days_of_week = {
+                'monday': 'Lunes',
+                'tuesday': 'Martes',
+                'wednesday': 'Miércoles',
+                'thursday': 'Jueves',
+                'friday': 'Viernes',
+                'saturday': 'Sábado',
+                'sunday': 'Domingo'
+            }
+
+            # Obtener el día de la semana actual en español
+            current_day_spanish = days_of_week.get(current_day_english)
+            print(current_day_spanish)
             recurrent_tasks = collection_tareas.find({'recurrente': {'$exists': True, '$eq': True}})
             recurrent_tasks = list(recurrent_tasks)
             # print(recurrent_tasks)
+
+             # Crear nuevas tareas a partir de las tareas recurrentes
+            new_tasks = []
+            for task in recurrent_tasks:
+                if task['dias_semana'].get(current_day_spanish, False):
+                    new_task = task.copy()
+                    new_task.pop('dias_semana', None)
+                    new_task.pop('recurrente', None)
+                    new_tasks.append(new_task)
+                    print('hay nueva')
+                    print(new_task)
+                    
             return {'tasks': recurrent_tasks}, 200
         except Exception as e:
             print(f"Error al obtener tareas recurrentes: {e}")
