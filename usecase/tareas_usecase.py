@@ -25,5 +25,11 @@ class TareasUsecase:
     
     def get_task_recurrente(self):
         return tareas_repository.get_task_recurrente()
+    
+    def get_recurrent_tasks(self):
+        return tareas_repository.get_recurrent_tasks()
+    
+    def inactivar_tarea_recurrente(self,tarea_data):
+        return tareas_repository.inactivar_tarea_recurrente(tarea_data)
 
 tareas_usecase = TareasUsecase(tareas_repository)

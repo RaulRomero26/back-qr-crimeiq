@@ -23,3 +23,12 @@ def update_task_completion_date():
     data = request.json
     task_id = data.get('task_id')
     return tareas_usecase.update_task_completion_date(task_id)
+
+@tareas_routes.route('/get_task_recurrente')
+def get_task_recurrente():
+    return tareas_usecase.get_task_recurrente()
+
+@tareas_routes.route('/inactivar_tarea_recurrente', methods=['POST'])
+def inactivar_tarea_recurrente():
+    tarea_data = request.json
+    return tareas_usecase.inactivar_tarea_recurrente(tarea_data)

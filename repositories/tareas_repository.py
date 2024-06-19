@@ -98,13 +98,40 @@ class TareasRepository:
                     new_task = task.copy()
                     new_task.pop('dias_semana', None)
                     new_task.pop('recurrente', None)
+                    new_task.pop('_id', None)
                     new_tasks.append(new_task)
                     print('hay nueva')
                     print(new_task)
-                    
-            return {'tasks': recurrent_tasks}, 200
+
+            result = collection_tareas.insert_many(new_tasks)
+            return {'success': True, 'inserted_ids': result.inserted_ids}, 200
         except Exception as e:
             print(f"Error al obtener tareas recurrentes: {e}")
             return {'error': str(e)}, 500
+        
+    def get_recurrent_tasks(self):
+        try:
+            recurrent_tasks = collection_tareas.find({'recurrente': {'$exists': True, '$eq': True}})
+            data = list(recurrent_tasks)
+            return {
+                'message': 'Tareas recurrentes obtenidas exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {'error': str(e)}, 500
+        
+    def inactivar_tarea_recurrente(self,tarea_data):
+        try:    
+            id = tarea_data.get('_id').get('$oid')  # Accede a $oid
+            id = ObjectId(id)  # Convierte la cadena a ObjectId
+            collection_tareas.update_one({'_id': id}, {'$set': { 'activo': tarea_data.get('activo')}})
+            return {
+                'success': True,
+                'message': 'Tarea recurrente inactivada exitosamente.'
+            }
+        except Exception as e:
+            return {'error': str(e)}, 500
+
 
 tareas_repository = TareasRepository()
