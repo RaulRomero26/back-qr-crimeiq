@@ -1,6 +1,8 @@
 from utils.db import collection_tareas
 from bson import ObjectId
 from datetime import datetime
+from bson import json_util, ObjectId
+import json
 
 class TareasRepository:
 
@@ -21,7 +23,7 @@ class TareasRepository:
     
     def getTareas(self):
         try:
-            data = list(collection_tareas.find({}, {'_id': 0}))
+            data = list(collection_tareas.find({'$or': [{'recurrente': False}, {'recurrente': {'$exists': False}}]}, {'_id': 0}))
             return {
                 'message': 'Tareas obtenidas exitosamente.',
                 'success': True,
@@ -111,21 +113,24 @@ class TareasRepository:
         
     def get_recurrent_tasks(self):
         try:
-            recurrent_tasks = collection_tareas.find({'recurrente': {'$exists': True, '$eq': True}})
+            recurrent_tasks = collection_tareas.find({'recurrente': {'$exists': True, '$eq': True}})  # Excluye _id
             data = list(recurrent_tasks)
+            data = json.loads(json_util.dumps(data))  # use bson's json_util.dumps
             return {
                 'message': 'Tareas recurrentes obtenidas exitosamente.',
                 'success': True,
                 'data': data
-            }
+        }
         except Exception as e:
             return {'error': str(e)}, 500
         
+
     def inactivar_tarea_recurrente(self,tarea_data):
         try:    
+            print(tarea_data)
             id = tarea_data.get('_id').get('$oid')  # Accede a $oid
             id = ObjectId(id)  # Convierte la cadena a ObjectId
-            collection_tareas.update_one({'_id': id}, {'$set': { 'activo': tarea_data.get('activo')}})
+            collection_tareas.update_one({'_id': id}, {'$set': { 'activa': tarea_data.get('activa')}})
             return {
                 'success': True,
                 'message': 'Tarea recurrente inactivada exitosamente.'

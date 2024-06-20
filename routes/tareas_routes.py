@@ -24,11 +24,15 @@ def update_task_completion_date():
     task_id = data.get('task_id')
     return tareas_usecase.update_task_completion_date(task_id)
 
-@tareas_routes.route('/get_task_recurrente')
+@tareas_routes.route('/get_task_recurrente', methods=['GET'])
 def get_task_recurrente():
     return tareas_usecase.get_task_recurrente()
 
+@tareas_routes.route('/get_recurrent_tasks', methods=['GET'])
+def get_recurrent_tasks():
+    return tareas_usecase.get_recurrent_tasks()
+
 @tareas_routes.route('/inactivar_tarea_recurrente', methods=['POST'])
 def inactivar_tarea_recurrente():
-    tarea_data = request.json
+    tarea_data = request.json['body']
     return tareas_usecase.inactivar_tarea_recurrente(tarea_data)
