@@ -38,10 +38,12 @@ class UsuariosUsecase:
         print("Directorio actual:", directorio_actual)
         upload_folder = os.path.join(os.path.dirname(os.path.dirname(directorio_actual)), 'USUARIOS')
         print("Upload folder:", upload_folder)
-        print(archivos_data)
-
-        usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
         
+
+        usuario_data['Foto'] = "https://api.scanner.crimeiq.org/imagenes/usuarios/default.svg"
+        usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
+        usuario_data['activo'] = True
+        print(usuario_data)
         if archivos_data:
              for file_key in archivos_data:
                 file = archivos_data[file_key]
