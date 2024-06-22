@@ -43,6 +43,7 @@ class UsuariosUsecase:
         usuario_data['Foto'] = "https://api.scanner.crimeiq.org/imagenes/usuarios/default.svg"
         usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
         usuario_data['activo'] = True
+        print('QUE HAY EN USUSARIOS DATA')
         print(usuario_data)
         if archivos_data:
              for file_key in archivos_data:
