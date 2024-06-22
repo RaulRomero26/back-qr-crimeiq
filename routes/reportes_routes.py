@@ -16,3 +16,7 @@ def guardar_alerta_emergencia():
 @reportes_routes.route('/all-alertas', methods=['GET'])
 def get_alertas():
     return reportes_usecase.get_alertas()
+
+@reportes_routes.route('/incidentes', methods=['GET'])
+def get_incidentes():
+    return reportes_usecase.get_incidentes()

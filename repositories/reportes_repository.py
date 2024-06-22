@@ -63,5 +63,18 @@ class ReportesRepository:
                 'error': str(e)
             }
         
+    def get_incidentes(self):
+        try:
+            data = list(collection_Inc.find({}, {'_id': 0}))
+            return {
+                'message': 'Incidentes exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
         
 reportes_repository = ReportesRepository()

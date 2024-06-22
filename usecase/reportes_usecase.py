@@ -14,4 +14,7 @@ class ReportesUsecase:
     def get_alertas(self):
         return reportes_repository.get_alertas()
 
+    def get_incidentes(self):
+        return reportes_repository.get_incidentes()
+
 reportes_usecase = ReportesUsecase(reportes_repository)
