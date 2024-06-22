@@ -113,7 +113,7 @@ class UsuariosRepository:
             update_data = {key: value for key, value in usuario_data.items() if key not in ['password', 'Foto', '_id']}
 
             # Solo hashear si se proporciona una nueva contraseña y no está vacía
-            if 'password' in usuario_data and usuario_data['password'] and usuario_data['password'] != "":
+            if 'password' in usuario_data and usuario_data['password']:
                 password = usuario_data['password']
                 hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
                 update_data['password'] = hashed_password.decode('utf-8')
@@ -125,7 +125,7 @@ class UsuariosRepository:
             # Manejar el campo 'activo'
             update_data['activo'] = usuario_data.get('activo', '').lower() == 'true'
 
-            print(user_id)
+            print(update_data)
             
             collection_Usu.update_one({'_id': user_id}, {'$set': update_data}, upsert=True)
             return {
