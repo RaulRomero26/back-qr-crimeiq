@@ -26,7 +26,7 @@ class QrUsecase:
 
             ruta_imagen_qr = self.generar_codigo_qr_con_logo(json.dumps(qr_data), ruta_logo_absoluta, nombre_archivo_con_extension, ruta_guardado_absoluta)
 
-            qr_data['ruta_imagen_qr'] = 'http://localhost:5000/imagenes/' + nombre_archivo_con_extension
+            qr_data['ruta_imagen_qr'] = 'https://api.scanner.crimeiq.org/imagenes/' + nombre_archivo_con_extension
             return self.qr_repository.generar_qr(qr_data)
 
         except Exception as e:
