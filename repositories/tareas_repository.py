@@ -141,7 +141,7 @@ class TareasRepository:
 
     def tareas_recurrentes_servicio(self,serv_asignado):
         try:
-            recurrent_tasks = collection_tareas.find({'hija_recurrente': {'$exists': True, '$eq': True},'no_servicio':serv_asignado})
+            recurrent_tasks = collection_tareas.find({'hija_reccurrente': {'$exists': True, '$eq': True},'no_servicio':serv_asignado})
             data = list(recurrent_tasks)
             data = json.loads(json_util.dumps(data))  # use bson's json_util.dumps
             return {
