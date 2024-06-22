@@ -22,7 +22,7 @@ class QrRepository:
             return {
                     'mensaje': 'Se ha generado el código QR con éxito.',
                     'success': True,
-                    'ruta': 'http://localhost:5000/imagenes/' + qr_data['nombreArchivo']
+                    'ruta': 'https://api.scanner.crimeiq.org/imagenes/' + qr_data['nombreArchivo']
                 }, 200
         except Exception as e:
             return {

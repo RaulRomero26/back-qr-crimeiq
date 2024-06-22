@@ -51,7 +51,12 @@ class UsuariosUsecase:
                     file.save(save_path)
                     usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
                     usuario_data['Foto'] = f"https://api.scanner.crimeiq.org/imagenes/usuarios/{filename}"
-        
+                    usuario_data['activo'] = True
+        else:
+            usuario_data['Foto'] = "https://api.scanner.crimeiq.org/imagenes/usuarios/default.svg"
+            usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
+            usuario_data['activo'] = True
+
         return self.usuarios_repository.actualizar_usuario(usuario_data)
 
 usuarios_usecase = UsuariosUsecase(usuarios_repository)
