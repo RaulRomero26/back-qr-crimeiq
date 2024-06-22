@@ -21,7 +21,7 @@ class Config(object):
             'func': 'app:job',
             'trigger': 'cron',
             'hour': 7,
-            'minute': 5
+            'minute': 15
         }
     ]
     #'trigger': 'cron',
