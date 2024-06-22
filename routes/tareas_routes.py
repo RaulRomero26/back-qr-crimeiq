@@ -39,6 +39,5 @@ def inactivar_tarea_recurrente():
 
 @tareas_routes.route('/tareas_recurrentes_servicio',methods=['GET'])
 def tareas_recurrentes_servicio():
-    serv_asignado = request.json
-    serv_asignado = serv_asignado.get('serv_asignado')
+    serv_asignado = request.args.get('serv_asignado')
     return tareas_usecase.tareas_recurrentes_servicio(serv_asignado)
