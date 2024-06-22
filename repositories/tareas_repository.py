@@ -138,5 +138,17 @@ class TareasRepository:
         except Exception as e:
             return {'error': str(e)}, 500
 
+    def tareas_recurrentes_servicio(self,serv_asignado):
+        try:
+            recurrent_tasks = collection_tareas.find({'recurrente': {'$exists': True, '$eq': True},'serv_asignado':serv_asignado})
+            data = list(recurrent_tasks)
+            data = json.loads(json_util.dumps(data))  # use bson's json_util.dumps
+            return {
+                'message': 'Tareas recurrentes obtenidas exitosamente.',
+                'success': True,
+                'data': data
+            }
+        except Exception as e:
+            return {'error': str(e)}, 500
 
 tareas_repository = TareasRepository()
