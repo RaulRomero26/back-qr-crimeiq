@@ -61,12 +61,14 @@ class UsuariosRepository:
     def actualizar_usuario(self, usuario_data):
         try:
             # Actualizar los datos del usuario en la colección
-            print('viene de inactivar:',usuario_data)
-            update_data = {key: value for key, value in usuario_data.items() if key not in ['password', 'Foto','_id']}
-            if 'password' in usuario_data:
-                password = usuario_data['password']
+            print('viene de inactivar:', usuario_data)
+            update_data = {key: value for key, value in usuario_data.items() if key not in ['password', 'Foto', '_id']}
+
+            if 'password' in usuario_data and usuario_data['password'] and usuario_data['password'] != "":  # Solo hashear si se proporciona una nueva contraseña
+                password = usuario_data['password']23
                 hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
                 update_data['password'] = hashed_password.decode('utf-8')
+            
             if 'Foto' in usuario_data:
                 update_data['Foto'] = usuario_data['Foto']
 
@@ -74,7 +76,7 @@ class UsuariosRepository:
                 update_data['activo'] = False
             else:
                 update_data['activo'] = True  
-            
+
             print(usuario_data.get('_id'))
             id = usuario_data.get('_id')
             id = ObjectId(id)  # Convierte la cadena a ObjectId
@@ -89,4 +91,5 @@ class UsuariosRepository:
                 'success': False,
                 'error': str(e)
             }
+
 usuarios_repository = UsuariosRepository()
