@@ -65,7 +65,7 @@ class UsuariosRepository:
             update_data = {key: value for key, value in usuario_data.items() if key not in ['password', 'Foto', '_id']}
 
             if 'password' in usuario_data and usuario_data['password'] and usuario_data['password'] != "":  # Solo hashear si se proporciona una nueva contraseña
-                password = usuario_data['password']23
+                password = usuario_data['password']
                 hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
                 update_data['password'] = hashed_password.decode('utf-8')
             
