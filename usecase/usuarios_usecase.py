@@ -15,6 +15,12 @@ class UsuariosUsecase:
         print("Upload folder:", upload_folder)
         print(archivos_data)  # Verificar que los archivos se están recibiendo
 
+        usuario_data['Foto'] = "https://api.scanner.crimeiq.org/imagenes/usuarios/default.svg"
+        usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
+        usuario_data['activo'] = True
+        print('QUE HAY EN USUSARIOS DATA')
+        print(usuario_data)
+        
         for file_key in archivos_data:
             file = archivos_data[file_key]
             if file and file.filename:
@@ -39,10 +45,6 @@ class UsuariosUsecase:
         upload_folder = os.path.join(os.path.dirname(os.path.dirname(directorio_actual)), 'USUARIOS')
         print("Upload folder:", upload_folder)
         
-
-        usuario_data['Foto'] = "https://api.scanner.crimeiq.org/imagenes/usuarios/default.svg"
-        usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
-        usuario_data['activo'] = True
         print('QUE HAY EN USUSARIOS DATA')
         print(usuario_data)
         if archivos_data:
@@ -55,10 +57,6 @@ class UsuariosUsecase:
                     usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
                     usuario_data['Foto'] = f"https://api.scanner.crimeiq.org/imagenes/usuarios/{filename}"
                     usuario_data['activo'] = True
-        else:
-            usuario_data['Foto'] = "https://api.scanner.crimeiq.org/imagenes/usuarios/default.svg"
-            usuario_data['Nom_completo'] = usuario_data['Nombre'] + ' ' + usuario_data['Ap_paterno'] + ' ' + usuario_data['Ap_materno']
-            usuario_data['activo'] = True
 
         return self.usuarios_repository.actualizar_usuario(usuario_data)
 
