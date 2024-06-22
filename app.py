@@ -20,7 +20,7 @@ class Config(object):
             'id': 'job1',
             'func': 'app:job',
             'trigger': 'interval',
-            'seconds': 10
+            'hours': 10
         }
     ]
     #'trigger': 'cron',
