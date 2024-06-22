@@ -101,6 +101,7 @@ class TareasRepository:
                     new_task.pop('dias_semana', None)
                     new_task.pop('recurrente', None)
                     new_task.pop('_id', None)
+                    new_task['hija_reccurente'] = True
                     new_tasks.append(new_task)
                     print('hay nueva')
                     print(new_task)
@@ -140,7 +141,7 @@ class TareasRepository:
 
     def tareas_recurrentes_servicio(self,serv_asignado):
         try:
-            recurrent_tasks = collection_tareas.find({'recurrente': {'$exists': True, '$eq': True},'serv_asignado':serv_asignado})
+            recurrent_tasks = collection_tareas.find({'hija_recurrente': {'$exists': True, '$eq': True},'serv_asignado':serv_asignado})
             data = list(recurrent_tasks)
             data = json.loads(json_util.dumps(data))  # use bson's json_util.dumps
             return {
