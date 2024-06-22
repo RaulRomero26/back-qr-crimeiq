@@ -19,13 +19,17 @@ class Config(object):
         {
             'id': 'job1',
             'func': 'app:job',
-            'trigger': 'interval',
-            'hours': 10
+            'trigger': 'cron',
+            'hour': 7,
+            'minute': 5
         }
     ]
     #'trigger': 'cron',
     #'hour': 7,
     #'minute': 0
+
+    # 'trigger': 'interval',
+    # 'hours': 10
 
     SCHEDULER_API_ENABLED = True
 
